@@ -1,30 +1,33 @@
-# docker-saltstack
-Docker Compose setup to spin up a salt master and minions.
+# Docker Saltstack
 
-You can read a full article describing how to use this setup [here](https://medium.com/@timlwhite/the-simplest-way-to-learn-saltstack-cd9f5edbc967).
+## Introduction
 
-You will need a system with Docker and Docker Compose installed to use this project.
+Docker Compose setup to spin up a salt master and minions (This is a fork)
 
-Just run:
+You can read a [full article describing how to use this setup](https://medium.com/@timlwhite/the-simplest-way-to-learn-saltstack-cd9f5edbc967).
 
-`docker-compose up`
+## Contents
 
-from a checkout of this directory, and the master and minion will start up with debug logging to the console.
+- [Usage](#usage)
+- [References](#references)
 
-Then you can run (in a separate shell window):
+## Usage
 
-`docker-compose exec salt-master bash`
+```bash
+# Start master & 3 minions
+docker-compose up -d --scale salt-minion=3
 
-and it will log you into the command line of the salt-master server.
+# Log into the master
+docker-compose exec salt-master bash
 
-From that command line you can run something like:
+# Run a ping command
+salt '*' test.ping
 
-`salt '*' test.ping`
+# Exit and shutdown
+exit
+docker-compose down
+```
 
-and in the window where you started docker compose, you will see the log output of both the master sending the command and the minion receiving the command and replying.
+## References
 
-[The Salt Remote Execution Tutorial](https://docs.saltstack.com/en/latest/topics/tutorials/modules.html) has some quick examples of the comamnds you can run from the master.
-
-Note: you will see log messages like : "Could not determine init system from command line" - those are just because salt is running in the foreground and not from an auto-startup.
-
-The salt-master is set up to accept all minions that try to connect.  Since the network that the salt-master sees is only the docker-compose network, this means that only minions within this docker-compose service network will be able to connect (and not random other minions external to docker).
+- [The Salt Remote Execution Tutorial](https://docs.saltstack.com/en/latest/topics/tutorials/modules.html) has some quick examples of the comamnds you can run from the master.

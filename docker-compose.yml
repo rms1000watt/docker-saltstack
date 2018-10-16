@@ -1,14 +1,10 @@
-version: '2.2'
+version: '3'
 
-services: 
+services:
   salt-master:
-    build:
-      context: .
-      dockerfile: Dockerfile.master
+    image: rms1000watt/salt-master
+
   salt-minion:
-    build:
-      context: .
-      dockerfile: Dockerfile.minion
+    image: rms1000watt/salt-minion
     depends_on:
       - salt-master
-    scale: 2
