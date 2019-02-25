@@ -1,0 +1,5 @@
+master: salt-master
+startup_states: highstate
+grains:
+  roles:
+    - service-1

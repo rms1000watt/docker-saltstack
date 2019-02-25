@@ -2,9 +2,25 @@ version: '3'
 
 services:
   salt-master:
+    container_name: salt-master
     image: rms1000watt/salt-master
+    volumes:
+      - ./config/master:/etc/salt/master:ro
+      - ./salt:/srv/salt:ro
+      - ./pillar:/srv/pillar:ro
 
-  salt-minion:
+  salt-minion-1:
+    container_name: salt-minion-1
     image: rms1000watt/salt-minion
+    volumes:
+      - ./config/minion-1:/etc/salt/minion:ro
+    depends_on:
+      - salt-master
+
+  salt-minion-2:
+    container_name: salt-minion-2
+    image: rms1000watt/salt-minion
+    volumes:
+      - ./config/minion-2:/etc/salt/minion:ro
     depends_on:
       - salt-master

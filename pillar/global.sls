@@ -1,0 +1,3 @@
+VAR_1: "VAL_1"
+VAR_2: "VAL_2"
+VAR_3: "VAL_3"

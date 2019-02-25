@@ -15,13 +15,16 @@ You can read a [full article describing how to use this setup](https://medium.co
 
 ```bash
 # Start master & 3 minions
-docker-compose up -d --scale salt-minion=3
+docker-compose up -d
 
 # Log into the master
 docker-compose exec salt-master bash
 
 # Run a ping command
 salt '*' test.ping
+
+# Check status of stat
+salt '*' state.apply test=True
 
 # Exit and shutdown
 exit
